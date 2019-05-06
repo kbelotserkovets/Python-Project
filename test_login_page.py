@@ -1,24 +1,22 @@
 import unittest
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from .locators import *
-import time
+from locators import LoginPage, DashboardPage, SettingsPage, ForgotPassPage
 
 
 class LoginPageTest(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome(executable_path="./Wellness/chromedriver")
+        self.driver = webdriver.Chrome(executable_path="chromedriver")
         self.driver.implicitly_wait(5)
 
     def tearDown(self):
         self.driver.close()
 
-    def hover_element(self, element):
-        hover = ActionChains(self.driver).move_to_element(element)
-        hover.perform()
+    # def hover_element(self, element):
+    #     hover = ActionChains(self.driver).move_to_element(element)
+    #     hover.perform()
 
     def user_sign_in(self, login, passwrd):
         driver = self.driver
