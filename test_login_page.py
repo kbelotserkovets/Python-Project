@@ -2,13 +2,15 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from locators import LoginPage, DashboardPage, SettingsPage, ForgotPassPage
+from pathlib import Path
+from locators import *
 
 
 class LoginPageTest(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome(executable_path="chromedriver")
+        Path.cwd()
+        self.driver = webdriver.Chrome() #executable_path="Wellness/chromedriver"
         self.driver.implicitly_wait(5)
 
     def tearDown(self):
