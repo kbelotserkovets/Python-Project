@@ -31,7 +31,7 @@ source venv/bin/activate
 
 ## Install required packages
 
-- Open Terminal\cmd from ```Wellness``` folder
+- Open Terminal\cmd from ```Python-Project``` folder
 - Type:
 ```commandline
 pip install -r requirements.txt
@@ -46,13 +46,13 @@ pip install -r requirements.txt
 - Run this file by clicking ```Shift + F10```
 
 
-## Run via Terminal  from ```Wellness``` (Linux/Mac)
+## Run via Terminal  from ```Python-Project``` (Linux/Mac)
 
 ```commandline
 python3 test_login_page.py 
 ```
 
-## Run via cmd from ```Wellness``` (Windows)
+## Run via cmd from ```Python-Project``` (Windows)
 
 ```commandline
 python test_login_page.py
