@@ -1,16 +1,17 @@
+import os
 import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from pathlib import Path
 from locators import *
 
 
 class LoginPageTest(unittest.TestCase):
 
     def setUp(self):
-        Path.cwd()
-        self.driver = webdriver.Chrome()
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        chromedriver_path = os.path.join(current_dir, 'chromedriver')
+        self.driver = webdriver.Chrome(chromedriver_path)
         self.driver.implicitly_wait(5)
 
     def tearDown(self):
