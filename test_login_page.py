@@ -13,13 +13,15 @@ class LoginPageTest(unittest.TestCase):
         chromedriver_path = os.path.join(current_dir, 'chromedriver')
         self.driver = webdriver.Chrome(chromedriver_path)
         self.driver.implicitly_wait(5)
+        driver = self.driver
+        driver.maximize_window()
+        driver.get('https://staging.onestopwellness.ai/')
+
 
     def tearDown(self):
         self.driver.close()
 
-    # def hover_element(self, element):
-    #     hover = ActionChains(self.driver).move_to_element(element)
-    #     hover.perform()
+
 
     def user_sign_in(self, login, passwrd):
         driver = self.driver
@@ -52,14 +54,14 @@ class LoginPageTest(unittest.TestCase):
         return page_state == 'complete'
 
     def test_login_with_valid_data(self):
-        self.user_sign_in("support@onestopwellness.ai", "5SdaG12pY2t0")
+        self.user_sign_in("ksenia.kim.88@mail.ru", "testtest")
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, '[class*="__nav_bar_header"]')))
         self.assertEqual(self.driver.current_url, 'https://staging.onestopwellness.ai/dashboard',
                          'URL should be "https://staging.onestopwellness.ai/dashboard"')
 
     def test_error_message_in_login_with_invalid_data(self):
-        self.user_sign_in("support@onestopwellness.ai", "qwerty")
+        self.user_sign_in("ksenia.kim.88@mail.ru", "qwerty")
         error_message = self.driver.find_element_by_css_selector('[class*="error__"]').text
         self.assertEqual(error_message, 'Invalid email or password, please try again',
                          'Error text should be: "Invalid email or password, please try again"')
@@ -73,7 +75,7 @@ class LoginPageTest(unittest.TestCase):
 
     def test_change_user_name(self):
         driver = self.driver
-        self.user_sign_in("support@onestopwellness.ai", "5SdaG12pY2t0")
+        self.user_sign_in("ksenia.kim.88@mail.ru", "testtest")
 
         self.open_user_settings()
 
@@ -83,10 +85,10 @@ class LoginPageTest(unittest.TestCase):
         gender_female = driver.find_element(*SettingsPage.GENDER_FEMALE)
 
         first_name.clear()
-        first_name.send_keys("Support")
+        first_name.send_keys("Kseniya")
 
         last_name.clear()
-        last_name.send_keys("Noreply")
+        last_name.send_keys("Kims")
 
         age.clear()
         age.send_keys("30")
@@ -105,13 +107,13 @@ class LoginPageTest(unittest.TestCase):
 
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.NAME, "firstName")))
 
-        self.assertEqual(first_name.get_attribute("value"), "Support")
-        self.assertEqual(last_name.get_attribute("value"), "Noreply")
+        self.assertEqual(first_name.get_attribute("value"), "Ksenia")
+        self.assertEqual(last_name.get_attribute("value"), "Kims")
         self.assertEqual(age.get_attribute("value"), "30")
 
     def test_forgot_password(self):
         driver = self.driver
-        self.forgot_password('leoproject@bk.ru')
+        self.forgot_password('ksenia.kim.88@mail.ru')
         email_title = driver.find_element(*ForgotPassPage.EMAIL_TITLE).text
         small_email_title = driver.find_element(*ForgotPassPage.SMALL_EMAIL_TITLE).text
         self.assertEqual(email_title, 'CHECK YOUR EMAIL', 'Title should contain text: "CHECK YOUR EMAIL"')
