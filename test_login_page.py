@@ -10,7 +10,7 @@ class LoginPageTest(unittest.TestCase):
 
     def setUp(self):
         Path.cwd()
-        self.driver = webdriver.Chrome() #executable_path="Wellness/chromedriver"
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(5)
 
     def tearDown(self):
