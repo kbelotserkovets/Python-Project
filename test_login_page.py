@@ -50,13 +50,16 @@ class LoginPageTest(unittest.TestCase):
 
     def test_login_with_valid_data(self):
         self.user_sign_in("support@onestopwellness.ai", "5SdaG12pY2t0")
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, '[class*="__nav_bar_header"]')))
-        self.assertEqual(self.driver.current_url, 'https://staging.onestopwellness.ai/dashboard', 'URL should be "https://staging.onestopwellness.ai/dashboard"')
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, '[class*="__nav_bar_header"]')))
+        self.assertEqual(self.driver.current_url, 'https://staging.onestopwellness.ai/dashboard',
+                         'URL should be "https://staging.onestopwellness.ai/dashboard"')
 
     def test_error_message_in_login_with_invalid_data(self):
         self.user_sign_in("support@onestopwellness.ai", "qwerty")
         error_message = self.driver.find_element_by_css_selector('[class*="error__"]').text
-        self.assertEqual(error_message, 'Invalid email or password, please try again', 'Error text should be: "Invalid email or password, please try again"')
+        self.assertEqual(error_message, 'Invalid email or password, please try again',
+                         'Error text should be: "Invalid email or password, please try again"')
 
     def test_user_login_with_empty_field(self):
         self.user_sign_in("", "")
@@ -103,20 +106,22 @@ class LoginPageTest(unittest.TestCase):
         self.assertEqual(last_name.get_attribute("value"), "Noreply")
         self.assertEqual(age.get_attribute("value"), "30")
 
-
     def test_forgot_password(self):
         driver = self.driver
         self.forgot_password('leoproject@bk.ru')
         email_title = driver.find_element(*ForgotPassPage.EMAIL_TITLE).text
         small_email_title = driver.find_element(*ForgotPassPage.SMALL_EMAIL_TITLE).text
         self.assertEqual(email_title, 'CHECK YOUR EMAIL', 'Title should contain text: "CHECK YOUR EMAIL"')
-        self.assertEqual(small_email_title, 'Please check your inbox, an email is on the way', 'Under "CHECK YOUR EMAIL" title, user should observe text: "Please check your inbox, an email is on the way"')
+        self.assertEqual(small_email_title, 'Please check your inbox, an email is on the way',
+                         'Under "CHECK YOUR EMAIL" title, user should observe text: "Please check your inbox, an email is on the way"')
         driver.find_element(*ForgotPassPage.NEXT).click()
-        self.assertEqual(driver.current_url, 'https://staging.onestopwellness.ai/signin', 'After send request for reset password, user should observe "Sign In" page')
+        self.assertEqual(driver.current_url, 'https://staging.onestopwellness.ai/signin',
+                         'After send request for reset password, user should observe "Sign In" page')
 
     def test_forgot_password_for_not_existing_email(self):
         self.forgot_password('test@test.com')
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, '[class*="error_message"]')))
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, '[class*="error_message"]')))
         error_message = self.driver.find_element(*ForgotPassPage.ERROR_MESSAGE).text
         self.assertEqual(error_message, 'User not found')
 
@@ -125,11 +130,11 @@ class LoginPageTest(unittest.TestCase):
         custom_error = self.driver.find_element(*ForgotPassPage.ERROR_EMPTY_EMAIL)
         self.assertTrue(custom_error.is_displayed())
 
-
     def test_sign_in_button_on_forgot_password_form(self):
         self.forgot_password("")
         self.driver.find_element(*ForgotPassPage.SIGN_IN).click()
-        self.assertEqual(self.driver.current_url, 'https://staging.onestopwellness.ai/signin', 'After send request for reset password, user should observe "Sign In" page')
+        self.assertEqual(self.driver.current_url, 'https://staging.onestopwellness.ai/signin',
+                         'After send request for reset password, user should observe "Sign In" page')
 
 
 if __name__ == '__main__':
