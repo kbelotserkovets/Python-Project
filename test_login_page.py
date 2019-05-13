@@ -3,7 +3,8 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from locators import *
+from elements.base import Page
+from locators import dashboardPage, forgotPasswordPage, loginPage, settingsPage
 
 
 class LoginPageTest(unittest.TestCase):
@@ -12,46 +13,10 @@ class LoginPageTest(unittest.TestCase):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         chromedriver_path = os.path.join(current_dir, 'chromedriver')
         self.driver = webdriver.Chrome(chromedriver_path)
-        self.driver.implicitly_wait(5)
-        driver = self.driver
-        driver.maximize_window()
-        driver.get('https://staging.onestopwellness.ai/')
-
+        self.page = Page(driver=self.driver)
 
     def tearDown(self):
         self.driver.close()
-
-
-
-    def user_sign_in(self, login, passwrd):
-        driver = self.driver
-        driver.maximize_window()
-        driver.get('https://staging.onestopwellness.ai/')
-        username = driver.find_element(*LoginPage.EMAIL)
-        password = driver.find_element(*LoginPage.PASSWORD)
-        username.send_keys(login)
-        password.send_keys(passwrd)
-        driver.find_element(*LoginPage.SIGN_IN).click()
-
-    def forgot_password(self, email):
-        driver = self.driver
-        driver.maximize_window()
-        driver.get('https://staging.onestopwellness.ai/')
-        driver.find_element(*LoginPage.FORGOT_PASSWORD).click()
-        email_field = driver.find_element(*LoginPage.EMAIL)
-        email_field.send_keys(email)
-        driver.find_element(*ForgotPassPage.NEXT).click()
-
-    def open_user_settings(self):
-        driver = self.driver
-        driver.find_element(*DashboardPage.USER_AVATAR).click()
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((DashboardPage.PROFILE_MENU)))
-        driver.find_element(*DashboardPage.SETTINGS).click()
-
-    def page_has_loaded(self):
-        page_state = self.driver.execute_script('return document.readyState;')
-        print(page_state)
-        return page_state == 'complete'
 
     def test_login_with_valid_data(self):
         self.user_sign_in("ksenia.kim.88@mail.ru", "testtest")

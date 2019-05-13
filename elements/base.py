@@ -8,8 +8,9 @@ class Page(object):
         self.driver = driver
         driver.maximize_window()
         driver.implicitly_wait(5)
+        self._open()
 
-    def open(self, url):
+    def _open(self, url=None):
         url = self.base_url + url
         self.driver.get(url)
 
@@ -23,8 +24,7 @@ class Page(object):
     def get_title(self):
         return self.driver.title
 
-
-class LoginPage(Page):
-    def __init__(self, driver):
-        self.driver = driver
-
+    def page_has_loaded(self):
+        page_state = self.driver.execute_script('return document.readyState;')
+        print(page_state)
+        return page_state == 'complete'
