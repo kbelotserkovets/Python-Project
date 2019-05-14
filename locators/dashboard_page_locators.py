@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class DashboardPage(object):
+class DashboardPageLocators(object):
 
     USER_AVATAR        = (By.CSS_SELECTOR, 'div[class*="right_column_menu"] > div[class*="user_information"] > div[class*="user_profile"] > div[class*="user_photo"]')
     SETTINGS           = (By.CSS_SELECTOR, '[class*="right_column_menu"] [class*="profile_menu"] > [class*="menu_items_container"] > [class*="menu_items"] > li > [href="/settings"]')

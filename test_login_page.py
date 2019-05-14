@@ -3,8 +3,7 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from elements.base import Page
-from locators import dashboardPage, forgotPasswordPage, loginPage, settingsPage
+from elements import *
 
 
 class LoginPageTest(unittest.TestCase):
@@ -17,26 +16,6 @@ class LoginPageTest(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
-
-    def test_login_with_valid_data(self):
-        self.user_sign_in("ksenia.kim.88@mail.ru", "testtest")
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, '[class*="__nav_bar_header"]')))
-        self.assertEqual(self.driver.current_url, 'https://staging.onestopwellness.ai/dashboard',
-                         'URL should be "https://staging.onestopwellness.ai/dashboard"')
-
-    def test_error_message_in_login_with_invalid_data(self):
-        self.user_sign_in("ksenia.kim.88@mail.ru", "qwerty")
-        error_message = self.driver.find_element_by_css_selector('[class*="error__"]').text
-        self.assertEqual(error_message, 'Invalid email or password, please try again',
-                         'Error text should be: "Invalid email or password, please try again"')
-
-    def test_user_login_with_empty_field(self):
-        self.user_sign_in("", "")
-        custom_login_error = self.driver.find_element(*LoginPage.ERROR_EMPTY_EMAIL_FIELD)
-        custom_password_error = self.driver.find_element(*LoginPage.ERROR_EMPTY_PASSWORD_FIELD)
-        self.assertTrue(custom_login_error.is_displayed(), "The color of email field's border should be RED")
-        self.assertTrue(custom_password_error.is_displayed(), "The color of password field's border should be RED")
 
     def test_change_user_name(self):
         driver = self.driver

@@ -10,7 +10,7 @@ class Page(object):
         driver.implicitly_wait(5)
         self._open()
 
-    def _open(self, url=None):
+    def _open(self, url=""):
         url = self.base_url + url
         self.driver.get(url)
 

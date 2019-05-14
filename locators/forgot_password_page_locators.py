@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class ForgotPassPage(object):
+class ForgotPassPageLocators(object):
 
     EMAIL              = (By.NAME, 'email')
     NEXT               = (By.CSS_SELECTOR, '[class*="btn_issue_details"]')
