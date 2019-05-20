@@ -1,4 +1,4 @@
-from elements.base import *
+from methods.base import Page
 from locators.settings_page_locators import SettingsPageLocators
 
 

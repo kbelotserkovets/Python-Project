@@ -1,35 +1,52 @@
-import os
 import unittest
-from elements.dashboard_page import *
+from unittest import TestCase
+from selene import browser, driver
+from selene.browser import should
+from selene.conditions import url
+from selene.support.conditions import have, be
+from selene.support.jquery_style_selectors import s
+
+from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+from locators.dashboard_page_locators import DashboardPageLocators
+from locators.login_page_locators import LoginPageLocators
+
+from methods import login_page
 
 
-class LoginPageTest(unittest.TestCase, LoginPage):
+class LoginPageTestCase(TestCase):
 
     def setUp(self):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        chromedriver_path = os.path.join(current_dir, 'chromedriver')
-        self.driver = webdriver.Chrome(chromedriver_path)
-        self.page = Page(driver=self.driver)
-
-    def tearDown(self):
-        self.driver.close()
+        browser.open_url("https://staging.onestopwellness.ai")
 
     def test_login_with_valid_data(self):
-        expected_url = 'https://staging.onestopwellness.ai/dashboard'
-        self.user_login_with_valid_data()
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(DashboardPageLocators.HEADER))
-        self.assertEqual(self.driver.current_url, expected_url, 'URL should be "https://staging.onestopwellness.ai/dashboard"')
+        page = login_page.LoginPage(driver)
+        page.user_login_with_valid_user()
+        browser.wait_for(s(DashboardPageLocators.HEADER), should(be.visible))
+        url(exact_value="https://staging.onestopwellness.ai/dashboard")
+        # check_url = url("https://staging.onestopwellness.ai/dashboard")
+        # check_url.fn(driver)
 
     def test_login_with_in_valid_data(self):
-        self.user_login_with_in_valid_data()
-        expected_error_message = 'Invalid email or password, please try again'
-        actual_error_message = self.find_element(*LoginPageLocators.ERROR_MESSAGE).text
-        self.assertEqual(actual_error_message, expected_error_message, 'Error text should be: "Invalid email or password, please try again"')
+        page = login_page.LoginPage(driver)
+        page.user_login_with_in_valid_user()
+        actual_error_message = s(LoginPageLocators.ERROR_MESSAGE)
+        actual_error_message.should(have.exact_text('Invalid email or password, please try again'))
 
     def test_login_with_empty_fields(self):
-        self.user_login_with_empty_data()
-        expected_error_text = 'The field is required.'
-        actual_email_error_text = self.find_element(*LoginPageLocators.ERROR_EMPTY_EMAIL_FIELD).text
-        actual_password_error_text = self.find_element(*LoginPageLocators.ERROR_EMPTY_PASSWORD_FIELD).text
-        self.assertEqual(expected_error_text, actual_email_error_text, 'Empty email field should contain the text: {}'.format(expected_error_text))
-        self.assertEqual(expected_error_text, actual_password_error_text, 'Empty password field should contain the text: {}'.format(expected_error_text))
+        page = login_page.LoginPage(driver)
+        page.user_login_with_empty_data()
+
+        actual_email_error_text = s(LoginPageLocators.ERROR_EMPTY_EMAIL_FIELD)
+        actual_password_error_text = s(LoginPageLocators.ERROR_EMPTY_PASSWORD_FIELD)
+
+        actual_email_error_text.should(have.exact_text("The field is required."))
+        actual_password_error_text.should(have.exact_text("The field is required."))
+
+    def tearDown(self):
+        browser.close()
+
+if __name__ == '__main__':
+    unittest.main()
