@@ -3,8 +3,8 @@ from selene import browser, driver
 from selene.support.conditions import have, be
 from selene.support.jquery_style_selectors import s
 
-from locators.dashboard_page_locators import DashboardPageLocators
-from locators.login_page_locators import LoginPageLocators
+from locators.dashboard_page import DashboardPageLocators
+from locators.login_page import LoginPageLocators
 
 from methods import login_page
 

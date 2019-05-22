@@ -2,7 +2,7 @@ import unittest
 from selene import browser, driver
 from selene.support.conditions import be
 from selene.support.jquery_style_selectors import s
-from locators.dashboard_page_locators import DashboardPageLocators
+from locators.dashboard_page import DashboardPageLocators
 
 from methods import settings_page
 from methods import login_page

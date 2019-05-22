@@ -3,7 +3,7 @@ from selene import browser, driver
 from selene.support.conditions import have
 from selene.support.jquery_style_selectors import s
 
-from locators.forgot_password_page_locators import ForgotPassPageLocators
+from locators.forgot_password_page import ForgotPassPageLocators
 
 from methods import forgot_password_page
 

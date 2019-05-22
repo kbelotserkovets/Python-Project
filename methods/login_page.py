@@ -1,5 +1,5 @@
 from selene.support.jquery_style_selectors import s
-from locators.login_page_locators import LoginPageLocators
+from locators.login_page import LoginPageLocators
 
 
 class LoginPage(object):

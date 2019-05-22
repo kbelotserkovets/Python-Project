@@ -1,5 +1,5 @@
 from selene.support.jquery_style_selectors import s
-from locators.forgot_password_page_locators import ForgotPassPageLocators
+from locators.forgot_password_page import ForgotPassPageLocators
 
 
 class ForgotPasswordPage(object):

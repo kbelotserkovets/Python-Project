@@ -1,7 +1,7 @@
 from selene.support.conditions import have
 from selene.support.jquery_style_selectors import s
-from locators.settings_page_locators import SettingsPageLocators
-from locators.dashboard_page_locators import DashboardPageLocators
+from locators.settings_page import SettingsPageLocators
+from locators.dashboard_page import DashboardPageLocators
 
 
 class SettingsPage(object):
