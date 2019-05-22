@@ -1,14 +1,7 @@
 import unittest
-from unittest import TestCase
 from selene import browser, driver
-from selene.browser import should
-from selene.conditions import url
 from selene.support.conditions import have, be
 from selene.support.jquery_style_selectors import s
-
-from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
 from locators.dashboard_page_locators import DashboardPageLocators
 from locators.login_page_locators import LoginPageLocators
@@ -16,7 +9,7 @@ from locators.login_page_locators import LoginPageLocators
 from methods import login_page
 
 
-class LoginPageTestCase(TestCase):
+class LoginPageTestCase(unittest.TestCase):
 
     def setUp(self):
         browser.open_url("https://staging.onestopwellness.ai")
@@ -24,10 +17,8 @@ class LoginPageTestCase(TestCase):
     def test_login_with_valid_data(self):
         page = login_page.LoginPage(driver)
         page.user_login_with_valid_user()
-        browser.wait_for(s(DashboardPageLocators.HEADER), should(be.visible))
-        url(exact_value="https://staging.onestopwellness.ai/dashboard")
-        # check_url = url("https://staging.onestopwellness.ai/dashboard")
-        # check_url.fn(driver)
+        browser.wait_for(s(DashboardPageLocators.HEADER), be.visible)
+        browser.should(have.url("https://staging.onestopwellness.ai/dashboard"))
 
     def test_login_with_in_valid_data(self):
         page = login_page.LoginPage(driver)
@@ -47,6 +38,7 @@ class LoginPageTestCase(TestCase):
 
     def tearDown(self):
         browser.close()
+
 
 if __name__ == '__main__':
     unittest.main()

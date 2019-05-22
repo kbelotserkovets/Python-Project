@@ -6,7 +6,6 @@ class ForgotPasswordPage(object):
     def __init__(self, driver):
         self.driver = driver
         self.locator = ForgotPassPageLocators
-        # super().__init__(driver)
 
     def click_forgot_password_button(self):
         s(ForgotPassPageLocators.FORGOT_PASSWORD).click()

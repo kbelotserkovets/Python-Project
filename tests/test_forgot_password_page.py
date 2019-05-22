@@ -1,7 +1,5 @@
 import unittest
-from unittest import TestCase
 from selene import browser, driver
-from selene.conditions import url
 from selene.support.conditions import have
 from selene.support.jquery_style_selectors import s
 
@@ -10,7 +8,7 @@ from locators.forgot_password_page_locators import ForgotPassPageLocators
 from methods import forgot_password_page
 
 
-class ForgotPasswordPageTestCase(TestCase):
+class ForgotPasswordPageTestCase(unittest.TestCase):
 
     def setUp(self):
         browser.open_url("https://staging.onestopwellness.ai")
@@ -20,7 +18,6 @@ class ForgotPasswordPageTestCase(TestCase):
         page.send_forgot_password_request("ksenia.kim.88@mail.ru")
         s(ForgotPassPageLocators.EMAIL_TITLE).should(have.exact_text("CHECK YOUR EMAIL"))
         s(ForgotPassPageLocators.SMALL_EMAIL_TITLE).should(have.exact_text("Please check your inbox, an email is on the way"))
-
 
     def test_forgot_password_with_in_valid_email(self):
         page = forgot_password_page.ForgotPasswordPage(driver)
@@ -36,7 +33,7 @@ class ForgotPasswordPageTestCase(TestCase):
         page = forgot_password_page.ForgotPasswordPage(driver)
         page.click_forgot_password_button()
         page.click_sign_in_button()
-        url(exact_value="https://staging.onestopwellness.ai/signin")
+        browser.should(have.url(exact_value="https://staging.onestopwellness.ai/signin"))
 
     def tearDown(self):
         browser.close()

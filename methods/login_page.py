@@ -6,7 +6,6 @@ class LoginPage(object):
     def __init__(self, driver):
         self.driver = driver
         self.locator = LoginPageLocators
-        # super().__init__(driver)
 
     def enter_email_password(self, email, password):
         s(LoginPageLocators.EMAIL).set_value(email)
@@ -14,9 +13,6 @@ class LoginPage(object):
 
     def click_sign_in_button(self):
         s(LoginPageLocators.SIGN_IN).click()
-    #
-    # def click_forgot_password_button(self):
-    #     s(LoginPageLocators.FORGOT_PASSWORD).click()
 
     def user_login_with_valid_user(self):
         self.enter_email_password("ksenia.kim.88@mail.ru", "testtest")

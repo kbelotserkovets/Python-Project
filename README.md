@@ -29,6 +29,15 @@ Use [pip](https://pip.pypa.io/en/latest/installing/) to run our commands.
 source venv/bin/activate
 ```
 
+## Set python path
+
+- After ```"$PYTHONPATH=..."``` you should set path to downloaded project
+
+```commandline
+export PYTHONPATH="$PYTHONPATH:/home/kbelotserkovets/Documents/Python-Project/"
+
+```
+
 ## Install required packages
 
 - Open Terminal\cmd from ```Python-Project``` folder
@@ -49,13 +58,13 @@ pip install -r requirements.txt
 ## Run via Terminal  from ```Python-Project``` (Linux/Mac)
 
 ```commandline
-python3 test_login_page.py 
+python test_login_page.py 
 ```
 
 ## Run via cmd from ```Python-Project``` (Windows)
 
 ```commandline
-python test_login_page.py
+python3 test_login_page.py
 ```
 
 
