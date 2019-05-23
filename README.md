@@ -46,6 +46,15 @@ export PYTHONPATH="$PYTHONPATH:/home/kbelotserkovets/Documents/Python-Project/"
 pip install -r requirements.txt
 ```
 
+## System variables
+
+- Ask PM to create valid user in this project and get credentials for setup system 
+variables
+- Run this command and instead of "**a**" input your **login** and instead of "**b**" input your password
+```commandline
+export username=a
+export password=b
+```
 
 
 
