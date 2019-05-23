@@ -1,0 +1,11 @@
+{
+  "valid_user": {
+    "name": "ksenia.kim.88@mail.ru",
+    "password": "testtest"
+  },
+
+  "in_valid_user": {
+    "name": "test@test.com",
+    "password": "qwerty123"
+  }
+}
